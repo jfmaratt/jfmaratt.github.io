@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Name | Academic Projects</title>
+<meta name="description" content="A collection of academic projects by Your Name.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+
+<style>
+  /* ---------- Colors (change these to restyle the whole site) ---------- */
+  :root {
+    --paper: #f6f7f9;
+    --ink: #14213d;
+    --muted: #596378;
+    --line: #d8dde6;
+    --accent: #2540d9;
+    --accent-soft: #e4e8fb;
+    --head: "Familjen Grotesk", "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0f1626;
+      --ink: #e8ecf6;
+      --muted: #9aa5bd;
+      --line: #263250;
+      --accent: #8da0ff;
+      --accent-soft: #1b2650;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  /* ---------- Page layout ---------- */
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 5rem;
+    display: grid;
+    grid-template-columns: 290px minmax(0, 1fr);
+    gap: 5rem;
+  }
+  aside {
+    position: sticky;
+    top: 4rem;
+    align-self: start;
+  }
+  h1 {
+    font-family: var(--head);
+    font-weight: 700;
+    font-size: 2.6rem;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.75rem;
+  }
+  .role { margin: 0 0 1.5rem; color: var(--muted); }
+  .bio { margin: 0 0 2rem; }
+  .links { list-style: none; margin: 0; padding: 0; font-family: var(--head); font-weight: 500; }
+  .links li { padding: 0.4rem 0; border-top: 1px solid var(--line); }
+  .links li:last-child { border-bottom: 1px solid var(--line); }
+  .links a { text-decoration: none; display: block; }
+  .links a:hover { text-decoration: underline; }
+
+  h2 {
+    font-family: var(--head);
+    font-weight: 600;
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+    margin: 0 0 1.25rem;
+  }
+
+  /* ---------- Filter ---------- */
+  .filter { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+  .filter button {
+    font: 500 0.95rem var(--head);
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.35rem 0.95rem;
+    cursor: pointer;
+  }
+  .filter button:hover { border-color: var(--accent); }
+  .filter button[aria-pressed="true"] {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--paper);
+  }
+
+  /* ---------- Projects ---------- */
+  .project {
+    display: grid;
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1.75rem 0;
+    border-top: 1px solid var(--line);
+  }
+  .project[hidden] { display: none; }
+  .year {
+    font-family: var(--head);
+    font-weight: 500;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    padding-top: 0.2rem;
+  }
+  .project h3 {
+    font-family: var(--head);
+    font-weight: 600;
+    font-size: 1.3rem;
+    line-height: 1.25;
+    margin: 0 0 0.4rem;
+  }
+  .project p { margin: 0 0 0.9rem; max-width: 62ch; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 0.9rem; padding: 0; list-style: none; }
+  .tags li {
+    font: 500 0.85rem var(--head);
+    background: var(--accent-soft);
+    color: var(--ink);
+    padding: 0.15rem 0.6rem;
+    border-radius: 4px;
+  }
+  .project-links { display: flex; flex-wrap: wrap; gap: 1.25rem; font-family: var(--head); font-weight: 500; }
+
+  /* ---------- Education / contact ---------- */
+  section + section { margin-top: 4rem; }
+  .edu { list-style: none; padding: 0; margin: 0; }
+  .edu li { padding: 0.9rem 0; border-top: 1px solid var(--line); }
+  .edu strong { font-family: var(--head); font-weight: 600; }
+  .edu span { color: var(--muted); display: block; }
+
+  footer { margin-top: 4rem; color: var(--muted); font-size: 0.95rem; }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 820px) {
+    .wrap { grid-template-columns: 1fr; gap: 3rem; padding-top: 2.5rem; }
+    aside { position: static; }
+    h1 { font-size: 2.2rem; }
+  }
+  @media (max-width: 480px) {
+    .project { grid-template-columns: 1fr; gap: 0.25rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <!-- =====================================================
+       SIDEBAR: your name, short intro, and links.
+       Replace the text. Delete any <li> you don't need.
+       ===================================================== -->
+  <aside>
+    <h1>Your Name</h1>
+    <p class="role">Your degree and university, e.g. MSc student in Biology, University of Somewhere</p>
+    <p class="bio">
+      A sentence or two about your interests. For example: I study how ecosystems
+      respond to climate change, and I enjoy building tools to analyze field data.
+    </p>
+    <ul class="links">
+      <li><a href="mailto:you@university.edu">Email</a></li>
+      <li><a href="cv.pdf">Curriculum vitae (PDF)</a></li>
+      <li><a href="https://github.com/jfmaratt">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/">LinkedIn</a></li>
+    </ul>
+  </aside>
+
+  <main>
+
+    <!-- =====================================================
+         PROJECTS
+         To add a project: copy one whole <article> block below,
+         paste it at the top of the list, and edit the text.
+         data-type must match one of the filter buttons
+         (research, coding, coursework). Change the buttons
+         if you want different categories.
+         ===================================================== -->
+    <section id="projects">
+      <h2>Projects</h2>
+
+      <div class="filter" role="group" aria-label="Filter projects by type">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="research" aria-pressed="false">Research</button>
+        <button type="button" data-filter="coding" aria-pressed="false">Coding</button>
+        <button type="button" data-filter="coursework" aria-pressed="false">Coursework</button>
+      </div>
+
+      <div id="project-list">
+
+        <article class="project" data-type="research">
+          <div class="year">2025</div>
+          <div>
+            <h3>Title of your thesis or main research project</h3>
+            <p>
+              Two or three sentences covering the question you asked, the method you used,
+              and what you found. Write it so someone outside your field can follow it.
+            </p>
+            <ul class="tags"><li>Thesis</li><li>Field work</li><li>Statistics</li></ul>
+            <div class="project-links">
+              <a href="#">Read the paper</a>
+              <a href="#">Poster</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project" data-type="coding">
+          <div class="year">2024</div>
+          <div>
+            <h3>Title of a software or data analysis project</h3>
+            <p>
+              What the tool does and why you built it. Mention the main technologies,
+              and what someone can do with it.
+            </p>
+            <ul class="tags"><li>Python</li><li>Data analysis</li></ul>
+            <div class="project-links">
+              <a href="https://github.com/jfmaratt">Code on GitHub</a>
+              <a href="#">Live demo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project" data-type="coursework">
+          <div class="year">2023</div>
+          <div>
+            <h3>Title of a course project</h3>
+            <p>
+              A short summary of the assignment, your role if it was a group project,
+              and the result.
+            </p>
+            <ul class="tags"><li>Group project</li><li>Presentation</li></ul>
+            <div class="project-links">
+              <a href="#">Report (PDF)</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project" data-type="research">
+          <div class="year">2022</div>
+          <div>
+            <h3>Title of an earlier research or lab project</h3>
+            <p>
+              Describe what you worked on, who supervised it, and what you contributed.
+            </p>
+            <ul class="tags"><li>Lab work</li></ul>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- =====================================================
+         EDUCATION: edit or delete this section.
+         ===================================================== -->
+    <section id="education">
+      <h2>Education</h2>
+      <ul class="edu">
+        <li>
+          <strong>MSc in Your Subject</strong>
+          <span>University of Somewhere, 2024 to present</span>
+        </li>
+        <li>
+          <strong>BSc in Your Subject</strong>
+          <span>University of Elsewhere, 2020 to 2024</span>
+        </li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>&copy; <span id="yr">2026</span> Your Name</p>
+    </footer>
+  </main>
+</div>
+
+<script>
+  // Project filter
+  (function () {
+    var buttons = document.querySelectorAll('.filter button');
+    var projects = document.querySelectorAll('.project');
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var f = btn.getAttribute('data-filter');
+        buttons.forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+        projects.forEach(function (p) {
+          p.hidden = !(f === 'all' || p.getAttribute('data-type') === f);
+        });
+      });
+    });
+    document.getElementById('yr').textContent = new Date().getFullYear();
+  })();
+</script>
+</body>
+</html>
